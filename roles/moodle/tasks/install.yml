@@ -1,0 +1,26 @@
+---
+
+- name: Create Moodle directory
+  file: path="{{ mdl_path }}" owner="{{ ansible_ssh_user }}" state=directory
+  become: True
+  tags:
+   - moodle
+   - directory
+
+- name: Create Moodledata directory
+  file: path="{{ mdl_data_path }}" owner=apache group=apache state=directory
+  become: True
+  tags:
+   - moodle
+   - directory
+
+
+- name: Clone Moodle
+  git:
+    repo: "{{mdl_repo}}"
+    dest: "{{ mdl_path }}"
+    version: "{{mdl_repo_version}}"
+  tags:
+   - git
+   - clone
+   - moodle

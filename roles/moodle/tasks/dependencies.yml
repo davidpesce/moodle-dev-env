@@ -1,0 +1,14 @@
+---
+
+- name: Install Git
+  yum: name=git state=present
+  tags:
+   - install
+   - git
+
+
+- name: Install DeltaRPM
+  yum: name=deltarpm state=present
+  tags:
+   - install
+   - deltarpm

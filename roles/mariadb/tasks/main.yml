@@ -1,0 +1,50 @@
+---
+
+- name: Install EPEL Repository
+  yum: name="http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-9.noarch.rpm" state=present
+  become: True
+  tags:
+   - install
+   - repository
+   - epel
+
+
+- name: Install MariaDB
+  yum: name="{{ item }}" state=present
+  become: True
+  with_items:
+   - mariadb-server
+  tags:
+   - install
+   - mariadb
+
+
+- name: Start MariaDB and enable automatic startup
+  shell: "systemctl {{ item }} mariadb.service"
+  become: True
+  with_items:
+   - start
+   - enable
+  tags:
+   - start
+   - enable
+   - mariadb
+   - daemon
+   - systemctl
+
+
+- name: Install MySQL-Python
+  yum: name=MySQL-python state=present
+  become: True
+  tags:
+   - install
+   - MySQL-Python
+
+
+- name: Update MariaDB root password for localhost root account
+  mysql_user: name="{{ mariadb_private.user }}"
+              host=localhost
+              password="{{ mariadb_private.password }}"
+              check_implicit_admin=yes
+              login_user="{{ mariadb_private.user }}"
+              state=present

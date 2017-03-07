@@ -1,0 +1,13 @@
+---
+
+- name: Install Moodle's dependencies
+  include: dependencies.yml
+  become: True
+
+
+- name: Moodle installation
+  include: install.yml
+
+
+- name: Moodle configuration
+  include: configure.yml

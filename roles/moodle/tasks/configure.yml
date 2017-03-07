@@ -1,0 +1,55 @@
+---
+
+
+- name: Create Moodle database
+  mysql_db:
+    login_user: "{{ mariadb_private.user }}"
+    login_password: "{{ mariadb_private.password }}"
+    name: "{{ mariadb.mdl_db_name }}"
+    collation: utf8_unicode_ci
+    encoding: utf8
+    state: present
+  tags:
+   - configuration
+   - learninglocker
+   - database
+
+
+- name: Create Moodle database user and grant all privileges
+  mysql_user:
+    login_user: "{{ mariadb_private.user }}"
+    login_password: "{{ mariadb_private.password }}"
+    name: "{{ mariadb.mdl_db_user }}"
+    password: "{{ mariadb.mdl_db_password }}"
+    priv: '{{ mariadb.mdl_db_name }}.*:ALL'
+    state: present
+  tags:
+   - configuration
+   - learninglocker
+   - database
+
+
+- name: Set Apache DocumentRoot and Directory Settings
+  template: src=moodle.conf.j2 dest=/etc/httpd/conf.d/moodle.conf
+  become: True
+  tags:
+   - configuration
+   - apache
+   - moodle
+
+
+- name: Restart Apache
+  command: systemctl restart httpd.service
+  become: True
+  tags:
+   - restart
+   - apache
+
+
+- name: Set ownership of directories to Apache
+  file: path="{{ mdl_path }}" owner=apache group=apache recurse=yes
+  become: True
+  tags:
+   - ownership
+   - moodle
+   - apache

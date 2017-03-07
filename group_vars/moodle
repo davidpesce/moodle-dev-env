@@ -1,0 +1,11 @@
+mdl_path: "/var/www/moodle"
+mdl_data_path: "/var/www/moodledata"
+mdl_repo: "https://github.com/moodle/moodle.git"
+mdl_repo_version: "HEAD"
+
+# MariaDB's public configuration
+mariadb:
+  mdl_db_name: moodle
+  mdl_db_user: moodle
+  mdl_db_password: 12345
+  host: "{{ mariadb_host | default('localhost')}}"

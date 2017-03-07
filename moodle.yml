@@ -1,0 +1,14 @@
+---
+
+# file: moodle.yml
+
+- name: Install and configure Moodle
+  hosts: moodle
+  roles:
+    - apache
+    - moodle
+  vars_files:
+    - vars.secret.yml
+  tags:
+    - moodle
+    - apache

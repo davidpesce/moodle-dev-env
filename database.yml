@@ -1,0 +1,13 @@
+---
+
+# file: database.yml
+
+- name: Install and configure MariaDB
+  hosts: database
+  roles:
+    - mariadb
+  vars_files:
+    - vars.secret.yml
+  tags:
+    - mariadb
+    - database
