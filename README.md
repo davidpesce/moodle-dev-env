@@ -4,7 +4,7 @@ The main intent of this repository is for developers of Moodle to rapidly create
 
 This project contains [Vagrant](https://www.vagrantup.com/) and [Ansible](http://www.ansible.com/) scripts to provision [CentOS7](https://www.centos.org/) machines with [Moodle](https://moodle.org/). 
 
-This LearningLocker installation will depend on [Apache2](http://httpd.apache.org/) and [MariaDB](https://mariadb.org/).
+This Moodle installation will depend on [Apache2](http://httpd.apache.org/) and [MariaDB](https://mariadb.org/).
 
 ## Configuration
 
